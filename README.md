@@ -1,307 +1,351 @@
-# Gemorecom — AI Game Asset Generator
+<p align="center">
+<img src="https://capsule-render.vercel.app/api?type=waving&height=320&color=0:0f2027,50:203a43,100:2c5364&text=GAMORECOM&fontSize=65&fontAlignY=42&desc=Generative%20AI%20Game%20Asset%20Engine&descAlignY=63"/>
+</p>
 
-<div style="width:100%;padding:18px;border-radius:12px;background:linear-gradient(90deg,#0f1724,#071025);box-shadow:0 10px 40px rgba(2,6,23,0.6);margin-bottom:18px">
-  <h1 style="margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#ffffff;letter-spacing:-0.02em">
-    Gemorecom
-  </h1>
-  <p style="margin:6px 0 0;color:#cfe9ff">AI Game Asset Studio — generate names, quests, items and lore with a local, modular generative pipeline.</p>
-  <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:8px">
-    <span style="padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,#7c3aed,#06b6d4);color:#fff;font-weight:700;font-size:13px">Polished UI</span>
-    <span style="padding:6px 10px;border-radius:999px;background:#101827;border:1px solid rgba(255,255,255,0.04);color:#cfe9ff;font-weight:700;font-size:13px">API + Experiments</span>
-    <span style="padding:6px 10px;border-radius:999px;background:#0b1220;border:1px solid rgba(124,58,237,0.06);color:#dbeafe;font-weight:700;font-size:13px">Local-first</span>
-    <span style="padding:6px 10px;border-radius:999px;background:#071025;border:1px solid rgba(6,182,212,0.06);color:#dff8fb;font-weight:700;font-size:13px">Pluggable Generator</span>
-  </div>
-</div>
+<p align="center">
+
+<img src="https://readme-typing-svg.herokuapp.com?font=Orbitron&size=30&duration=3000&color=00E0FF&center=true&vCenter=true&width=900&lines=AI+Powered+Game+Asset+Generator;LangChain+Based+AI+Pipeline;Local+LLM+Execution+with+Ollama;Creative+Content+Generation+for+Games"/>
+
+</p>
 
 ---
 
-## Overview
+# GAMORECOM
 
-Gemorecom is a local-first, modular toolkit for generating game-ready text assets: names, quests, items, and lore. It ships with a polished web UI (landing + chat), a `/api/generate` endpoint, and an experiments runner to measure how parameters like temperature and seed affect outputs.
+<table>
+<tr>
+<td>
 
-This repo is designed for quick evaluation by reviewers: runnable locally, reproducible experiments, and a clear upgrade path to 3D generation later.
+Gamorecom is a **Generative AI platform for game asset creation** built with modern AI engineering practices.
 
----
+The project demonstrates how **local large language models** can be integrated into a **web application pipeline** to generate creative game content such as:
 
-## Key features
+• fantasy creatures
+• magical weapons
+• quest narratives
+• world lore
 
-* Clean landing page with fullscreen hero video and responsive asset gallery.
-* AI chat UI with controls for **temperature** and **seed**.
-* `/api/generate` endpoint wired to a pluggable generator (LangChain → Ollama → direct ollama.chat → dummy fallback).
-* `experiments.py` — controlled sweeps across temperature and seed, saving JSON outputs.
-* Safe offline fallback so the UI works without a local model.
+The system combines **LangChain orchestration**, **local LLM execution**, and a **modern UI interface** to create a compact yet powerful AI application.
 
----
-
-## Tech stack
-
-* LangChain — orchestration & prompt chains.
-* Ollama — local model runtime (optional).
-* Mistral — recommended model to pull into Ollama.
-* Flask — server for UI and API.
-* Blender (optional) — preview / validate 3D assets for future upgrades.
-
-> The generator backend is intentionally pluggable. If `langchain` or `ollama` are not installed the system falls back to a deterministic generator so you can demo the UI and run experiments offline.
+</td>
+</tr>
+</table>
 
 ---
 
-## Project structure
+# Technology Stack
 
-```
-gemorecom/
-├─ app.py                 # Flask app (serves UI + /api/generate)
-├─ generator.py           # pluggable generator abstraction (LangChain / Ollama / dummy)
-├─ experiments.py         # parameter sweeps and saving outputs
-├─ templates/
-│  ├─ index.html
-│  └─ aichat.html
-├─ static/
-│  ├─ css/style.css
-│  ├─ videos/
-│  └─ images/
-├─ uploads/               # optional: user uploads / demo screenshots
-├─ outputs/               # generated outputs (experiments saved here)
-├─ samples/               # curated sample outputs for reviewers
-├─ requirements.txt
-└─ README.md
+<p align="center">
+
+<img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
+
+<img src="https://img.shields.io/badge/Flask-Web%20Framework-black?style=for-the-badge"/>
+
+<img src="https://img.shields.io/badge/LangChain-AI%20Framework-blue?style=for-the-badge"/>
+
+<img src="https://img.shields.io/badge/Ollama-Local%20LLM%20Runtime-grey?style=for-the-badge"/>
+
+<img src="https://img.shields.io/badge/Mistral-LLM-orange?style=for-the-badge"/>
+
+<img src="https://img.shields.io/badge/HTML5-Frontend-red?style=for-the-badge"/>
+
+<img src="https://img.shields.io/badge/CSS3-UI%20Styling-blue?style=for-the-badge"/>
+
+</p>
+
+---
+
+# System Architecture
+
+```mermaid
+flowchart LR
+
+User --> Web_Interface
+
+Web_Interface --> Flask_Backend
+
+Flask_Backend --> LangChain_Engine
+
+LangChain_Engine --> Ollama_Runtime
+
+Ollama_Runtime --> Mistral_Model
+
+Mistral_Model --> Generated_Output
+
+Generated_Output --> Web_Interface
 ```
 
 ---
 
-## Quick start (local, CPU-friendly)
+# LangChain Generation Pipeline
 
-1. Clone repo:
+```mermaid
+flowchart LR
 
-```bash
-git clone <your-repo>
-cd gemorecom
+Prompt --> PromptTemplate
+
+PromptTemplate --> LLM_Model
+
+LLM_Model --> OutputParser
+
+OutputParser --> Final_Output
 ```
 
-2. Create & activate virtual environment:
-
-```bash
-python -m venv .venv
-# macOS / Linux
-source .venv/bin/activate
-# Windows (PowerShell)
-.venv\Scripts\Activate.ps1
-```
-
-3. Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-4. (Optional) Install Ollama and pull a model:
-
-```bash
-# install Ollama app from https://ollama.com
-ollama pull mistral
-```
-
-5. Run the app:
-
-```bash
-python app.py
-```
-
-Open `http://127.0.0.1:5000` (landing) and click **Meet Gemorecom** to open the chat.
+The pipeline demonstrates a simplified **LangChain LCEL workflow** for controlled prompt generation.
 
 ---
 
-## API
+# Core Features
 
-### `POST /api/generate`
+<table>
+<tr>
+<td width="50%">
 
-**Request body (JSON):**
+AI Content Generation
 
-```json
+Generate creative assets such as:
+
+• mythical dragons
+• enchanted weapons
+• fantasy locations
+• RPG quest lines
+
+</td>
+
+<td width="50%">
+
+Local AI Execution
+
+Runs fully on local machine using:
+
+• Ollama runtime
+• Mistral language model
+• No external API costs
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+Interactive Web Interface
+
+Modern web interface including:
+
+• cinematic landing page
+• video background
+• responsive card layouts
+
+</td>
+
+<td>
+
+AI Chat Interaction
+
+Dedicated chat interface allowing:
+
+• dynamic prompt input
+• adjustable parameters
+• live AI responses
+
+</td>
+</tr>
+
+</table>
+
+---
+
+# Parameter Experiments
+
+The project explores how **LLM parameters influence generated outputs**.
+
+| Parameter        | Description                           |
+| ---------------- | ------------------------------------- |
+| temperature      | Controls creativity of responses      |
+| seed             | Controls reproducibility of outputs   |
+| prompt structure | Affects generated style and narrative |
+
+Example experiment:
+
+Prompt:
+
+```
+Generate a powerful dragon boss for a fantasy RPG
+```
+
+Temperature = 0.2
+Output becomes more structured and predictable.
+
+Temperature = 0.9
+Output becomes more imaginative and varied.
+
+Seed changes produce different variations of the same concept.
+
+---
+
+# Project Structure
+
+```
+GAMORECOM
+│
+├── app.py
+│
+├── static
+│   └── css
+│       └── style.css
+│
+├── templates
+│   ├── index.html
+│   └── aichat.html
+│
+├── uploads
+│   ├── Screenshot 2026-03-05 1309.png
+│   ├── Screenshot 2026-03-05 1311.png
+│   ├── Screenshot 2026-03-05 1314.png
+│   └── Screenshot 2026-03-05 1315.png
+│
+└── .vscode
+```
+
+---
+
+# Application Workflow
+
+<table>
+<tr>
+<td>
+
+Step 1
+User opens the landing page.
+
+Step 2
+User clicks **Meet Gamorecom**.
+
+Step 3
+AI chat interface opens.
+
+Step 4
+User submits a creative prompt.
+
+Step 5
+LangChain processes the prompt.
+
+Step 6
+Ollama runs the Mistral model locally.
+
+Step 7
+Generated output is returned to the interface.
+
+</td>
+</tr>
+</table>
+
+---
+
+# API Endpoint
+
+POST request
+
+```
+/api/generate
+```
+
+Example request
+
+```
 {
-  "type": "name",               // name | item | quest | lore | default
-  "prompt": "Generate 5 dragon names for an ice kingdom",
-  "temperature": 0.6,
-  "seed": 42,
-  "num": 5,
-  "variables": { "theme": "ice", "rarity": "legendary" }
+ "prompt": "generate a powerful dragon boss",
+ "temperature": 0.8,
+ "seed": 123
 }
 ```
 
-**Response:**
+Example response
 
-```json
+```
 {
-  "output": "Zyphorax\nDrakarion\nValdrakon\nThalrex\nAbyssal Nytherion",
-  "meta": { "backend": "ollama_direct", "model": "mistral", "temperature": 0.6 },
-  "asset_type": "name",
-  "variables": { "theme": "ice", "num": 5 }
+ "output": "An ancient crimson dragon named Zyphorax emerges from volcanic ruins..."
 }
 ```
 
-Notes:
+---
 
-* The API maps `type` → internal prompt templates in `generator.py`.
-* If `langchain` + `ollama` are available the chain is used; otherwise it tries direct `ollama.chat`, then the dummy fallback.
+# Interface Preview
+
+<p align="center">
+
+<img src="uploads/Screenshot 2026-03-05 1309.png" width="80%"/>
+
+<img src="uploads/Screenshot 2026-03-05 1311.png" width="80%"/>
+
+<img src="uploads/Screenshot 2026-03-05 1314.png" width="80%"/>
+
+<img src="uploads/Screenshot 2026-03-05 1315.png" width="80%"/>
+
+</p>
 
 ---
 
-## Experiments
+# Installation
 
-Use `experiments.py` to run controlled sweeps and save outputs to `outputs/experiments/`. Each JSON file contains:
+Clone repository
 
-* `meta`: `{ prompt, variables, model, temperature, seed, timestamp }`
-* `output`: raw generated text
-* `generator_meta`: backend information (langchain/ollama/dummy)
-
-Recommended sweep settings:
-
-* Temperatures: `0.2`, `0.6`, `1.0`
-* Seeds: `42`, `123`, `999`
-* `num` (number of items per run): `3–5`
-
-Record short human notes for each run in `experiments.md` (coherence, novelty, game-readiness).
-
----
-
-## Prompt engineering tips
-
-* Be explicit: require exact output fields (TITLE / Description / Stats / Abilities).
-* Use templates: structured output is easier to parse and convert to in-game data.
-* Control creativity: use low temperature (0.1–0.4) for deterministic names/stats; high temperature (0.8–1.0) for evocative lore.
-* Include a short system preface (e.g., "You are an expert game content designer") for consistent tone.
-* For reproducibility, include `seed` and commit representative outputs.
-
----
-
-## Usage examples
-
-**Generate dragon names (curl):**
-
-```bash
-curl -X POST http://127.0.0.1:5000/api/generate \
-  -H "Content-Type: application/json" \
-  -d '{
-    "type":"name",
-    "prompt":"Generate 5 epic dragon names for an ice kingdom",
-    "temperature":0.6,
-    "seed":42,
-    "num":5
-  }'
+```
+git clone https://github.com/your-username/gamorecom.git
 ```
 
-**Generate a quest with file context (UI / API):** include `file_content` in the payload (first ~5000 chars of uploaded file) to bias results toward your lore.
+Enter project directory
 
----
-
-## UI
-
-* `index.html`: fullscreen hero video, responsive gallery of video/image cards, **Meet Gemorecom** button that opens `/aichat`. Cards autoplay on hover/focus.
-* `aichat.html`: conversation panel, temperature & seed controls, send button triggers `/api/generate`, shows live outputs and preserves session history in the browser.
-
----
-
-## Configuration & env
-
-Environment variables:
-
-```bash
-PORT=5000
-FLASK_ENV=development
+```
+cd gamorecom
 ```
 
-Settings in `app.py` to review:
+Install dependencies
 
-* `MODEL_NAME` — default model to call (e.g., `"mistral"`)
-* `UPLOAD_FOLDER` — where uploads are temporarily stored
-* `MAX_CONTENT_LENGTH` — max upload size (default in code)
+```
+pip install flask langchain
+```
 
----
+Install Ollama runtime
 
-## Troubleshooting
+https://ollama.com
 
-**Ollama connection refused**
+Download model
 
-* Ensure the Ollama app/daemon is running and you pulled a model:
-
-```bash
+```
 ollama pull mistral
-ollama serve
 ```
 
-Verify with `curl http://localhost:11434/api/status` (if using Ollama daemon).
+Run application
 
-**Model not found**
-
-* Run `ollama list` after `ollama pull <model>`; change `MODEL_NAME` if needed.
-
-**Out of memory**
-
-* Close other apps, use a smaller model, or increase swap. For low-RAM demo, rely on the dummy fallback.
-
-**CORS**
-
-* Frontend and backend are served from the same Flask app; enable `flask-cors` only if you separate origins.
-
----
-
-## Development
-
-**Run in debug mode**
-
-```bash
-export FLASK_ENV=development
+```
 python app.py
 ```
 
-(Windows PowerShell: `set FLASK_ENV=development`)
+Open browser
 
-**Run experiments**
-
-```bash
-python experiments.py
+```
+http://localhost:5000
 ```
 
 ---
 
-## Contributing
+# Future Improvements
 
-Contributions welcome:
-
-1. Fork repository
-2. Create a feature branch
-3. Open a pull request with tests / example outputs
-4. Report issues in the tracker
-
----
-
-## Future enhancements
-
-* Add structured JSON output parsers for items (title / stats / abilities) to convert directly to game data.
-* Add optional 3D backend: generate placeholder GLB/OBJ metadata and a mock LOD pipeline.
-* Add authentication, user projects, and saved histories.
-* Add streaming (SSE or WebSocket) for incremental token display.
+• 3D asset generation
+• AI image generation for game textures
+• Blender integration pipeline
+• Asset export for Unity / Unreal Engine
+• Automatic asset tagging and search
 
 ---
 
-## License
+# Author
 
-This project is open source under the MIT License.
+Debashish Parida
+Computer Science Engineering
 
----
-
-## Resources
-
-| Resource       | Link                                                                   |
-| -------------- | ---------------------------------------------------------------------- |
-| Ollama docs    | [https://ollama.ai](https://ollama.ai)                                 |
-| LangChain docs | [https://langchain.readthedocs.io](https://langchain.readthedocs.io)   |
-| Flask docs     | [https://flask.palletsprojects.com](https://flask.palletsprojects.com) |
-| Mistral        | [https://mistral.ai](https://mistral.ai)                               |
-
----
-
-If you want, I can now:
-
-* write this README into a `README.md` file for you, ready to commit,
-* generate `experiments.md` with example runs and human notes, or
-* produce a `samples/` folder with 6 polished sample outputs to include in the repo. Which would you like next?
+Artificial Intelligence
+Data Science
+Generative AI
+Full Stack Development
